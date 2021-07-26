@@ -16,7 +16,7 @@ spec:
         app: cloud-native-deployment
     spec:
       containers:
-        - image: harbor.edu.cn/cn202102/cloud_native:12
+        - image: harbor.edu.cn/cn202102/cloud_native:13
           imagePullPolicy: IfNotPresent
           name: cloud-native
           ports:
