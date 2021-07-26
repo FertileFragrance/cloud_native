@@ -21,6 +21,8 @@ spec:
           name: cloud-native
           ports:
             - containerPort: 6666
+      imagePullSecrets:
+        - name: cn202102
       restartPolicy: Always
 ---
 apiVersion: v1
