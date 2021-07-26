@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-native-deployment
+  labels:
+    app: cloud-native-deployment
+  namespace: cn202102
+spec:
+  selector:
+    matchLabels:
+      app: cloud-native-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cloud-native-deployment
+    spec:
+      containers:
+        - image: harbor.edu.cn/cn202102/cloud_native:{VERSION}
+          imagePullPolicy: IfNotPresent
+          name: cloud_native
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-native-deployment-service
+  namespace: cn202102
+  labels:
+    name: cloud-native-deployment-service
+spec:
+  type: NodePort
+  ports:
+    - port: 6666
+      targetPort: 6666
+      protocol: TCP
+      nodePort: 30006
+  selector:
+    app: cloud-native-deployment
