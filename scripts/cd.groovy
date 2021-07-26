@@ -13,6 +13,8 @@ node('slave') {
 
         stage('Deploy') {
             echo "7. Deploy To K8s Stage"
+            sh "docker login --username=cn202102 harbor.edu.cn -p cn202102"
+            sh "docker pull harbor.edu.cn/cn202102/cloud_native:${BUILD_ID}"
             sh 'kubectl apply -f ./scripts/cloud_native.yaml'
         }
     }
