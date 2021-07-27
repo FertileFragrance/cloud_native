@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cloud-native-deployment
+  name: cloud-native-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-native-deployment
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "6666"
+        prometheus.io/scheme: http
+        prometheus.io/scrape: "true"
+      labels:
+        app: cloud-native-deployment
+    spec:
+      containers:
+        - image: harbor.edu.cn/cn202102/cloud_native:{VERSION}
+          name: cloud-native-deployment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-native-deployment
+  labels:
+    app: cloud-native-deployment
+spec:
+  type: NodePort
+  selector:
+    app: cloud-native-deployment
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 6666
+      targetPort: 6666
