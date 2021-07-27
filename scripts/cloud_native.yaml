@@ -23,7 +23,7 @@ spec:
             - containerPort: 6666
       imagePullSecrets:
         - name: cn202102
-      restartPolicy: Always
+      restartPolicy: Never
 ---
 apiVersion: v1
 kind: Service
