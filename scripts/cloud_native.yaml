@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
         - image: harbor.edu.cn/cn202102/cloud_native:49
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           name: cloud-native
           ports:
             - containerPort: 6666
       imagePullSecrets:
         - name: cn202102
-      restartPolicy: Never
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
