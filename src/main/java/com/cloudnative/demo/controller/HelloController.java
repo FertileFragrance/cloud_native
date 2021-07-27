@@ -1,6 +1,7 @@
 package com.cloudnative.demo.controller;
 
 
+import com.cloudnative.demo.ratelimit.RequestLimit;
 import com.cloudnative.demo.service.HelloService;
 import com.cloudnative.demo.vo.ResultVO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class HelloController {
     private HelloService helloService;
 
     @GetMapping("/hello")
+    @RequestLimit(count = 10000)
     public ResultVO getHello() {
         return helloService.getHello();
     }
